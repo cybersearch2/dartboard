@@ -27,12 +27,12 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.widgets.LabelFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -56,15 +56,15 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	}
 
 	@Override
+	@SuppressWarnings("restriction")
 	public void createControl(Composite parent) {
 		Composite comp = new Group(parent, SWT.NONE);
 		setControl(comp);
 
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(comp);
 
-		Label labelProject = new Label(comp, SWT.NONE);
-		labelProject.setText(Messages.Launch_Project);
-		GridDataFactory.swtDefaults().applyTo(labelProject);
+		LabelFactory labelFactory = LabelFactory.newLabel(SWT.NONE).layoutData(GridDataFactory::swtDefaults);
+		labelFactory.text(Messages.Launch_Project).create(parent);
 
 		comboProject = new Combo(comp, SWT.READ_ONLY | SWT.DROP_DOWN);
 		for (IProject project : getProjectsInWorkspace()) {
@@ -73,18 +73,14 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
 		comboProject.addModifyListener(event -> updateLaunchConfigurationDialog());
 
-		Label labelSdkLocation = new Label(comp, SWT.NONE);
-		labelSdkLocation.setText(Messages.Preference_SDKLocation);
-		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
+		labelFactory.text(Messages.Preference_SDKLocation).create(parent);
 
 		textSdkLocation = new Text(comp, SWT.NONE);
 		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
 		textSdkLocation.addModifyListener(event -> updateLaunchConfigurationDialog());
 
-		Label labelMainClass = new Label(comp, SWT.NONE);
-		labelMainClass.setText(Messages.Launch_MainClass);
-		GridDataFactory.swtDefaults().applyTo(labelMainClass);
+		labelFactory.text(Messages.Launch_MainClass).create(parent);
 
 		textMainClass = new Text(comp, SWT.NONE);
 		textMainClass.setMessage(Messages.Launch_MainClass_Message);
