@@ -39,7 +39,7 @@
      <useUIThread>false</useUIThread>
      <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
      <argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -Xmx512m</argLine>
-     <product>org.eclipse.platform.ide</product>
+     <product>org.eclipse.platform.ide</product>s
      <application>org.eclipse.ui.ide.workbench</application>
      <dependencies combine.children="append">
       <dependency>
